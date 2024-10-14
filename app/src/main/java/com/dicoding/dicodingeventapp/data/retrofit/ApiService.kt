@@ -2,8 +2,10 @@ package com.dicoding.dicodingeventapp.data.retrofit
 
 import com.dicoding.dicodingeventapp.data.response.DetailResponse
 import com.dicoding.dicodingeventapp.data.response.EventResponse
-import retrofit2.http.*
 import retrofit2.Call
+import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
     @GET("events")

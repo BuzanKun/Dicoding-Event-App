@@ -23,7 +23,7 @@
         <activity
             android:name=".ui.detail.DetailActivity"
             android:exported="true"
-            android:label="Detail Event"/>
+            android:label="Detail Event" />
         <activity
             android:name=".ui.HomeActivity"
             android:exported="true">

@@ -1,4 +1,4 @@
-package com.dicoding.eldenringwiki
+package com.dicoding.dicodingeventapp.ui.util
 
 import android.os.Bundle
 import android.view.MenuItem

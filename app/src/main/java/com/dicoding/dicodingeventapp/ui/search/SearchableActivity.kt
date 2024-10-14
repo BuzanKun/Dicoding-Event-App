@@ -9,7 +9,7 @@ import com.dicoding.dicodingeventapp.data.response.ListEventsItem
 import com.dicoding.dicodingeventapp.databinding.ActivitySearchableBinding
 import com.dicoding.dicodingeventapp.ui.ListEventAdapter
 import com.dicoding.dicodingeventapp.ui.ListViewModel
-import com.dicoding.eldenringwiki.GoBackActivity
+import com.dicoding.dicodingeventapp.ui.util.GoBackActivity
 import com.google.android.material.snackbar.Snackbar
 
 class SearchableActivity : GoBackActivity() {

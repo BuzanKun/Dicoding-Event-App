@@ -28,7 +28,10 @@ class UpcomingFragment : Fragment() {
         val root: View = binding.root
 
         val upcomingViewModel =
-            ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[ListViewModel::class.java]
+            ViewModelProvider(
+                this,
+                ViewModelProvider.NewInstanceFactory()
+            )[ListViewModel::class.java]
 
         val layoutManager = LinearLayoutManager(requireActivity())
         binding.rvEventList.layoutManager = layoutManager

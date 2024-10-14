@@ -1,8 +1,19 @@
 <resources>
-    <string name="app_name">DicodingEventApp</string>
+    <string name="app_name">Dicoding Event</string>
     <string name="event_image">Event Image</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_home">Home</string>
     <string name="title_upcoming">Upcoming</string>
     <string name="title_finished">Finished</string>
+    <string name="event_description">Event Description</string>
+    <string name="event_name">Event Name</string>
+    <string name="event_owner">Event Owner</string>
+    <string name="remaining_quota">Remaining Quota</string>
+    <string name="event_summary">Event Summary</string>
+    <string name="event_begin_time">Event Begin Time</string>
+    <string name="diselenggarakan_oleh">Diselenggarakan oleh :</string>
+    <string name="dimulai_pada">Dimulai pada :</string>
+    <string name="sisa_kuota">Sisa Kuota :</string>
+    <string name="register">Register</string>
+    <string name="search_event">Search Event</string>
 </resources>

@@ -11,12 +11,13 @@ import com.dicoding.dicodingeventapp.data.response.ListEventsItem
 import com.dicoding.dicodingeventapp.databinding.ItemEventRowBinding
 import com.dicoding.dicodingeventapp.ui.detail.DetailActivity
 
-class ListEventAdapter: ListAdapter<ListEventsItem, ListEventAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class ListEventAdapter : ListAdapter<ListEventsItem, ListEventAdapter.MyViewHolder>(DIFF_CALLBACK) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): MyViewHolder {
-        val binding = ItemEventRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemEventRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(binding)
     }
 
@@ -31,7 +32,8 @@ class ListEventAdapter: ListAdapter<ListEventsItem, ListEventAdapter.MyViewHolde
         }
     }
 
-    class MyViewHolder(private val binding: ItemEventRowBinding) : RecyclerView.ViewHolder(binding.root) {
+    class MyViewHolder(private val binding: ItemEventRowBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(event: ListEventsItem) {
             Glide.with(binding.root.context)
                 .load(event.mediaCover)
@@ -42,10 +44,17 @@ class ListEventAdapter: ListAdapter<ListEventsItem, ListEventAdapter.MyViewHolde
 
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ListEventsItem>() {
-            override fun areItemsTheSame(oldItem: ListEventsItem, newItem: ListEventsItem): Boolean {
+            override fun areItemsTheSame(
+                oldItem: ListEventsItem,
+                newItem: ListEventsItem
+            ): Boolean {
                 return oldItem == newItem
             }
-            override fun areContentsTheSame(oldItem: ListEventsItem, newItem: ListEventsItem): Boolean {
+
+            override fun areContentsTheSame(
+                oldItem: ListEventsItem,
+                newItem: ListEventsItem
+            ): Boolean {
                 return oldItem == newItem
             }
         }

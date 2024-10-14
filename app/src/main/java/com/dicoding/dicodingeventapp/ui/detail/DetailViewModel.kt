@@ -13,7 +13,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailViewModel: ViewModel() {
+class DetailViewModel : ViewModel() {
 
     private val _eventDetailDetail = MutableLiveData<EventDetail?>()
     val eventDetail: MutableLiveData<EventDetail?> = _eventDetailDetail
@@ -24,7 +24,7 @@ class DetailViewModel: ViewModel() {
     private val _errorMessage = MutableLiveData<Event<String>?>()
     val errorMessage: LiveData<Event<String>?> = _errorMessage
 
-    companion object{
+    companion object {
         private const val TAG = "DetailViewModel"
     }
 
@@ -32,7 +32,10 @@ class DetailViewModel: ViewModel() {
         _isLoading.value = true
         val client = ApiConfig.getApiService().getDetailEvent(id)
         client.enqueue(object : Callback<DetailResponse> {
-            override fun onResponse(call: Call<DetailResponse>, response: Response<DetailResponse>) {
+            override fun onResponse(
+                call: Call<DetailResponse>,
+                response: Response<DetailResponse>
+            ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
                     _eventDetailDetail.value = response.body()?.eventDetail
@@ -50,4 +53,7 @@ class DetailViewModel: ViewModel() {
         })
     }
 
+    fun calculateRemainingQuota(fullQuota: Int, boughtQuota: Int): Int {
+        return fullQuota - boughtQuota
+    }
 }

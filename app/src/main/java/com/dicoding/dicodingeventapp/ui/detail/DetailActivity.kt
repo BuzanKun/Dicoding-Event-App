@@ -1,12 +1,14 @@
 package com.dicoding.dicodingeventapp.ui.detail
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.dicoding.dicodingeventapp.databinding.ActivityDetailBinding
-import com.dicoding.eldenringwiki.GoBackActivity
+import com.dicoding.dicodingeventapp.ui.util.GoBackActivity
 import com.google.android.material.snackbar.Snackbar
 
 class DetailActivity : GoBackActivity() {
@@ -30,12 +32,28 @@ class DetailActivity : GoBackActivity() {
                     .into(binding.ivEventImage)
                 binding.tvEventSummary.text = eventDetail.summary
                 binding.tvEventName.text = eventDetail.name
+                binding.tvEventOwner.text = eventDetail.ownerName
+                binding.tvEventTime.text = eventDetail.beginTime
+                binding.tvEventQuota.text =
+                    detailViewModel.calculateRemainingQuota(
+                        eventDetail.quota!!,
+                        eventDetail.registrants!!
+                    )
+                        .toString()
                 binding.tvEventDescription.text = HtmlCompat.fromHtml(
                     eventDetail.description.toString(),
                     HtmlCompat.FROM_HTML_MODE_LEGACY
                 )
             }
         }
+
+        binding.btEventLink.setOnClickListener {
+            val url = detailViewModel.eventDetail.value?.link
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(url)
+            startActivity(intent)
+        }
+
 
         detailViewModel.isLoading.observe(this) { isLoading ->
             showLoading(isLoading)
