@@ -12,6 +12,7 @@ import com.dicoding.dicodingeventapp.data.response.ListEventsItem
 import com.dicoding.dicodingeventapp.databinding.FragmentHomeBinding
 import com.dicoding.dicodingeventapp.ui.ListEventAdapter
 import com.dicoding.dicodingeventapp.ui.ListViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class HomeFragment : Fragment() {
 
@@ -34,6 +35,7 @@ class HomeFragment : Fragment() {
 
         val layoutManagerHorizontal = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         binding.rvEventListUpcoming.layoutManager = layoutManagerHorizontal
+        binding.rvEventListUpcoming.setHasFixedSize(true)
 
         val layoutManagerVertical = LinearLayoutManager(requireActivity())
         binding.rvEventListFinished.layoutManager = layoutManagerVertical
@@ -55,7 +57,7 @@ class HomeFragment : Fragment() {
         homeViewModel.errorMessage.observe(viewLifecycleOwner) { it ->
             it?.getContentIfNotHandled()?.let { errorMessage ->
                 errorMessage.let {
-                    Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                    Snackbar.make(requireView(), it, Snackbar.LENGTH_SHORT).show()
                 }
             }
         }

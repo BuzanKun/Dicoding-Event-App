@@ -1,6 +1,6 @@
 package com.dicoding.dicodingeventapp.ui.util
 
-open class ToastEvent<out T>(private val content: T) {
+open class Event<out T>(private val content: T) {
     @Suppress("MemberVisibilityCanBePrivate")
     var hasBeenHandled = false
         private set
@@ -13,6 +13,4 @@ open class ToastEvent<out T>(private val content: T) {
             content
         }
     }
-
-    fun peekContent(): T = content
 }

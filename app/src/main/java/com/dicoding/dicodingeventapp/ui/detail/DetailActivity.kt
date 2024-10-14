@@ -2,14 +2,14 @@ package com.dicoding.dicodingeventapp.ui.detail
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.dicoding.dicodingeventapp.databinding.ActivityDetailBinding
+import com.dicoding.eldenringwiki.GoBackActivity
+import com.google.android.material.snackbar.Snackbar
 
-class DetailActivity : AppCompatActivity() {
+class DetailActivity : GoBackActivity() {
     private lateinit var binding: ActivityDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,13 +17,14 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val detailViewMode = ViewModelProvider(this)[DetailViewModel::class.java]
+        val detailViewModel = ViewModelProvider(this)[DetailViewModel::class.java]
 
         val id = intent.getIntExtra("id", 0)
-        detailViewMode.findEventDetail(id)
+        detailViewModel.findEventDetail(id)
 
-        detailViewMode.eventDetail.observe(this) { eventDetail ->
+        detailViewModel.eventDetail.observe(this) { eventDetail ->
             if (eventDetail != null) {
+                supportActionBar?.title = eventDetail.name
                 Glide.with(this)
                     .load(eventDetail.mediaCover)
                     .into(binding.ivEventImage)
@@ -36,14 +37,14 @@ class DetailActivity : AppCompatActivity() {
             }
         }
 
-        detailViewMode.isLoading.observe(this) { isLoading ->
+        detailViewModel.isLoading.observe(this) { isLoading ->
             showLoading(isLoading)
         }
 
-        detailViewMode.errorMessage.observe(this) { it ->
+        detailViewModel.errorMessage.observe(this) { it ->
             it?.getContentIfNotHandled()?.let { errorMessage ->
                 errorMessage.let {
-                    Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+                    Snackbar.make(binding.root, it, Snackbar.LENGTH_SHORT).show()
                 }
             }
         }

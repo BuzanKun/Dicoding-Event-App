@@ -15,14 +15,20 @@
         android:theme="@style/Theme.DicodingEventApp"
         tools:targetApi="31">
         <activity
+            android:name=".ui.search.SearchableActivity"
+            android:exported="false"
+            android:label="Result for:">
+
+        </activity>
+        <activity
             android:name=".ui.detail.DetailActivity"
-            android:exported="false" />
+            android:exported="true"
+            android:label="Detail Event"/>
         <activity
             android:name=".ui.HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

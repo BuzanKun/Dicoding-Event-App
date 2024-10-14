@@ -4,7 +4,6 @@
     import android.view.LayoutInflater
     import android.view.View
     import android.view.ViewGroup
-    import android.widget.Toast
     import androidx.fragment.app.Fragment
     import androidx.lifecycle.ViewModelProvider
     import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +11,7 @@
     import com.dicoding.dicodingeventapp.databinding.FragmentFinishedBinding
     import com.dicoding.dicodingeventapp.ui.ListEventAdapter
     import com.dicoding.dicodingeventapp.ui.ListViewModel
+    import com.google.android.material.snackbar.Snackbar
 
     class FinishedFragment : Fragment() {
 
@@ -45,7 +45,7 @@
             finishedViewModel.errorMessage.observe(viewLifecycleOwner) { it ->
                 it?.getContentIfNotHandled()?.let { errorMessage ->
                     errorMessage.let {
-                        Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                        Snackbar.make(requireView(), it, Snackbar.LENGTH_SHORT).show()
                     }
                 }
             }

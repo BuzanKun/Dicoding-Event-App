@@ -1,15 +1,20 @@
 package com.dicoding.dicodingeventapp.ui
 
+import android.app.SearchManager
+import android.content.ComponentName
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.dicoding.dicodingeventapp.R
 import com.dicoding.dicodingeventapp.databinding.ActivityHomeBinding
+import com.dicoding.dicodingeventapp.ui.search.SearchableActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity() {
 
@@ -31,10 +36,31 @@ class HomeActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.search_menu, menu)
+
+        val searchView = menu.findItem(R.id.search).actionView as SearchView
+        searchView.queryHint = "Search Event"
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                searchView.clearFocus()
+                searchView.setQuery("", false)
+                val intentQuery = Intent(this@HomeActivity, SearchableActivity::class.java)
+                intentQuery.putExtra("query", query)
+                startActivity(intentQuery)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+
+        })
 
         return true
     }
