@@ -15,8 +15,8 @@ import retrofit2.Response
 
 class DetailViewModel : ViewModel() {
 
-    private val _eventDetailDetail = MutableLiveData<EventDetail?>()
-    val eventDetail: MutableLiveData<EventDetail?> = _eventDetailDetail
+    private val _eventDetail = MutableLiveData<EventDetail?>()
+    val eventDetail: MutableLiveData<EventDetail?> = _eventDetail
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -38,7 +38,7 @@ class DetailViewModel : ViewModel() {
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
-                    _eventDetailDetail.value = response.body()?.eventDetail
+                    _eventDetail.value = response.body()?.eventDetail
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
                     _errorMessage.value = Event("Failed to Catch API Data")
