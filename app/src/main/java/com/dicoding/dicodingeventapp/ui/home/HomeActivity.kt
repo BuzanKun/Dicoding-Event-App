@@ -1,4 +1,4 @@
-package com.dicoding.dicodingeventapp.ui
+package com.dicoding.dicodingeventapp.ui.home
 
 import android.content.Intent
 import android.os.Bundle

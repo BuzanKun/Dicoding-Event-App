@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.dicoding.dicodingeventapp.ui.fragments.HomeFragment"
+        android:name="com.dicoding.dicodingeventapp.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_finished"
-        android:name="com.dicoding.dicodingeventapp.ui.fragments.FinishedFragment"
+        android:name="com.dicoding.dicodingeventapp.ui.home.FinishedFragment"
         android:label="Finished"
         tools:layout="@layout/fragment_finished" />
 
     <fragment
         android:id="@+id/navigation_upcoming"
-        android:name="com.dicoding.dicodingeventapp.ui.fragments.UpcomingFragment"
+        android:name="com.dicoding.dicodingeventapp.ui.home.UpcomingFragment"
         android:label="Upcoming"
         tools:layout="@layout/fragment_upcoming" />
 

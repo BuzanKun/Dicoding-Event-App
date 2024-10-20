@@ -1,4 +1,4 @@
-package com.dicoding.dicodingeventapp.ui.util
+package com.dicoding.dicodingeventapp.ui.utils
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -16,7 +16,7 @@ open class GoBackActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                onBackPressed()
+                onBackPressedDispatcher.onBackPressed()
                 return true
             }
         }

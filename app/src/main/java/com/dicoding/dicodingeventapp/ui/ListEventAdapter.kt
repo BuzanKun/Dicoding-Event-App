@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.dicoding.dicodingeventapp.data.response.ListEventsItem
+import com.dicoding.dicodingeventapp.data.local.entity.EventEntity
 import com.dicoding.dicodingeventapp.databinding.ItemEventRowBinding
 import com.dicoding.dicodingeventapp.ui.detail.DetailActivity
 
-class ListEventAdapter : ListAdapter<ListEventsItem, ListEventAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class ListEventAdapter : ListAdapter<EventEntity, ListEventAdapter.MyViewHolder>(DIFF_CALLBACK) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -34,7 +34,7 @@ class ListEventAdapter : ListAdapter<ListEventsItem, ListEventAdapter.MyViewHold
 
     class MyViewHolder(private val binding: ItemEventRowBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(event: ListEventsItem) {
+        fun bind(event: EventEntity) {
             Glide.with(binding.root.context)
                 .load(event.mediaCover)
                 .into(binding.ivEventImage)
@@ -43,17 +43,17 @@ class ListEventAdapter : ListAdapter<ListEventsItem, ListEventAdapter.MyViewHold
     }
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ListEventsItem>() {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<EventEntity>() {
             override fun areItemsTheSame(
-                oldItem: ListEventsItem,
-                newItem: ListEventsItem
+                oldItem: EventEntity,
+                newItem: EventEntity
             ): Boolean {
                 return oldItem == newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: ListEventsItem,
-                newItem: ListEventsItem
+                oldItem: EventEntity,
+                newItem: EventEntity
             ): Boolean {
                 return oldItem == newItem
             }
