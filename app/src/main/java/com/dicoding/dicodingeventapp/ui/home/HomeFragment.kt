@@ -39,8 +39,20 @@ class HomeFragment : Fragment() {
             factory
         }
 
-        val upcomingAdapter = ListEventAdapter()
-        val finishedAdapter = ListEventAdapter()
+        val upcomingAdapter = ListEventAdapter { event ->
+            if (event.isFavorite) {
+                viewModel.deleteFavoriteEvent(event)
+            } else {
+                viewModel.saveFavoriteEvent(event)
+            }
+        }
+        val finishedAdapter = ListEventAdapter { event ->
+            if (event.isFavorite) {
+                viewModel.deleteFavoriteEvent(event)
+            } else {
+                viewModel.saveFavoriteEvent(event)
+            }
+        }
 
         viewModel.getUpcomingEvents().observe(viewLifecycleOwner) { result ->
             if (result != null) {

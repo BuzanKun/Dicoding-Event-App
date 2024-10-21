@@ -3,15 +3,17 @@ package com.dicoding.dicodingeventapp.ui
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.dicoding.dicodingeventapp.R
 import com.dicoding.dicodingeventapp.data.local.entity.EventEntity
 import com.dicoding.dicodingeventapp.databinding.ItemEventRowBinding
 import com.dicoding.dicodingeventapp.ui.detail.DetailActivity
 
-class ListEventAdapter : ListAdapter<EventEntity, ListEventAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class ListEventAdapter(private val onFavoriteClick: (EventEntity) -> Unit) : ListAdapter<EventEntity, ListEventAdapter.MyViewHolder>(DIFF_CALLBACK) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -30,9 +32,22 @@ class ListEventAdapter : ListAdapter<EventEntity, ListEventAdapter.MyViewHolder>
             intent.putExtra("id", event.id)
             holder.itemView.context.startActivity(intent)
         }
+
+        val ivFavorite = holder.binding.fabFavorite
+        if (event.isFavorite) {
+            ivFavorite.setImageDrawable(ContextCompat.getDrawable(ivFavorite.context, R.drawable.ic_favorite_full_24))
+        } else {
+            ivFavorite.setImageDrawable(ContextCompat.getDrawable(ivFavorite.context, R.drawable.ic_favorite_border_24))
+        }
+
+        ivFavorite.setOnClickListener {
+            onFavoriteClick(event)
+            notifyItemChanged(position)
+        }
+
     }
 
-    class MyViewHolder(private val binding: ItemEventRowBinding) :
+    class MyViewHolder(internal val binding: ItemEventRowBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(event: EventEntity) {
             Glide.with(binding.root.context)

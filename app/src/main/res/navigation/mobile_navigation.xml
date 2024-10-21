@@ -14,13 +14,19 @@
     <fragment
         android:id="@+id/navigation_finished"
         android:name="com.dicoding.dicodingeventapp.ui.home.FinishedFragment"
-        android:label="Finished"
+        android:label="Finished Event"
         tools:layout="@layout/fragment_finished" />
 
     <fragment
         android:id="@+id/navigation_upcoming"
         android:name="com.dicoding.dicodingeventapp.ui.home.UpcomingFragment"
-        android:label="Upcoming"
+        android:label="Upcoming Event"
         tools:layout="@layout/fragment_upcoming" />
+
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.dicoding.dicodingeventapp.ui.home.FavoriteFragment"
+        android:label="Favorite Event"
+        tools:layout="@layout/fragment_favorite" />
 
 </navigation>

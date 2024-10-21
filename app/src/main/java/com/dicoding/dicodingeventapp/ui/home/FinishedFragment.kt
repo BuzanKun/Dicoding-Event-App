@@ -35,7 +35,13 @@ class FinishedFragment : Fragment() {
             factory
         }
 
-        val eventAdapter = ListEventAdapter()
+        val eventAdapter = ListEventAdapter { event ->
+            if (event.isFavorite) {
+                viewModel.deleteFavoriteEvent(event)
+            } else {
+                viewModel.saveFavoriteEvent(event)
+            }
+        }
 
         binding?.root?.postDelayed({
             binding?.rvEventList?.apply {

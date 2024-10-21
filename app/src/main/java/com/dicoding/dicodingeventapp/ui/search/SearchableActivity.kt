@@ -30,7 +30,13 @@ class SearchableActivity : GoBackActivity() {
 
         supportActionBar?.title = "Search result for: $query"
 
-        val eventAdapter = ListEventAdapter()
+        val eventAdapter = ListEventAdapter {
+            if (it.isFavorite) {
+                viewModel.deleteFavoriteEvent(it)
+            } else {
+                viewModel.saveFavoriteEvent(it)
+            }
+        }
         binding.rvEventList.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)

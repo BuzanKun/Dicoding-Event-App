@@ -31,6 +31,17 @@
             tools:ignore="ImageContrastCheck"
             tools:src="@tools:sample/avatars" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabCustomSize="40dp"
+            android:layout_margin="8dp"
+            android:contentDescription="@string/button_favorite"
+            android:src="@drawable/ic_favorite_border_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/iv_event_image"/>
+
         <TextView
             android:id="@+id/tv_event_name"
             android:layout_width="match_parent"

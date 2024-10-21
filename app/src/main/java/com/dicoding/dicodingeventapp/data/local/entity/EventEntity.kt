@@ -50,7 +50,7 @@ data class EventEntity(
     val category: String?,
 
     @field:ColumnInfo(name = "favorited")
-    val isFavorite: Boolean,
+    var isFavorite: Boolean,
 
     @field:ColumnInfo(name = "status")
     val status: Int?

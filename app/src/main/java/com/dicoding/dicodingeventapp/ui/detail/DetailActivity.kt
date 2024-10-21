@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import com.bumptech.glide.Glide
+import com.dicoding.dicodingeventapp.R
 import com.dicoding.dicodingeventapp.data.Result
 import com.dicoding.dicodingeventapp.databinding.ActivityDetailBinding
 import com.dicoding.dicodingeventapp.ui.EventViewModel
@@ -26,6 +28,7 @@ class DetailActivity : GoBackActivity() {
         val viewModel: EventViewModel by viewModels {
             factory
         }
+        val ivFavorite = binding.fabFavorite
 
         val id = intent.getIntExtra("id", 0)
         if (id != 0) {
@@ -58,6 +61,19 @@ class DetailActivity : GoBackActivity() {
                             val intent = Intent(Intent.ACTION_VIEW)
                             intent.data = Uri.parse(url)
                             startActivity(intent)
+                        }
+                        if (event.isFavorite) {
+                            ivFavorite.setImageDrawable(ContextCompat.getDrawable(ivFavorite.context, R.drawable.ic_favorite_full_24))
+                        } else {
+                            ivFavorite.setImageDrawable(ContextCompat.getDrawable(ivFavorite.context, R.drawable.ic_favorite_border_24))
+                        }
+
+                        ivFavorite.setOnClickListener {
+                            if (event.isFavorite) {
+                                viewModel.deleteFavoriteEvent(event)
+                            } else {
+                                viewModel.saveFavoriteEvent(event)
+                            }
                         }
                     }
                     is Result.Error -> {
