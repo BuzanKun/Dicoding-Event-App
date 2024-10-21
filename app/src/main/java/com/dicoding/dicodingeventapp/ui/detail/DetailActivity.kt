@@ -15,6 +15,7 @@ import com.dicoding.dicodingeventapp.databinding.ActivityDetailBinding
 import com.dicoding.dicodingeventapp.ui.EventViewModel
 import com.dicoding.dicodingeventapp.ui.ViewModelFactory
 import com.dicoding.dicodingeventapp.ui.utils.GoBackActivity
+import java.util.Locale
 
 class DetailActivity : GoBackActivity() {
     private lateinit var binding: ActivityDetailBinding
@@ -48,10 +49,10 @@ class DetailActivity : GoBackActivity() {
                         binding.tvEventName.text = event.name
                         binding.tvEventOwner.text = event.ownerName
                         binding.tvEventTime.text = event.beginTime
-                        binding.tvEventQuota.text = viewModel.calculateRemainingQuota(
-                            event.quota!!,
-                            event.registrants!!
-                        ).toString()
+                        binding.tvEventQuota.text = String.format(
+                            Locale.getDefault(), "%,d",
+                            viewModel.calculateRemainingQuota(event.quota!!, event.registrants!!)
+                        )
                         binding.tvEventDescription.text = HtmlCompat.fromHtml(
                             event.description.toString(),
                             HtmlCompat.FROM_HTML_MODE_LEGACY

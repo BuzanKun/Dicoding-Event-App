@@ -21,4 +21,9 @@
         android:icon="@drawable/ic_favorite_full_24"
         android:title="@string/favorite" />
 
+    <item
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/ic_settings_24"
+        android:title="@string/settings" />
+
 </menu>

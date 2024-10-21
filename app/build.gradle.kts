@@ -46,6 +46,9 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.logging.interceptor)
 
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.jetbrains.kotlinx.coroutines.android)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

@@ -18,4 +18,6 @@
     <string name="event_title">Event Title</string>
     <string name="favorite">Favorite</string>
     <string name="button_favorite">Button Favorite</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="settings">Settings</string>
 </resources>
