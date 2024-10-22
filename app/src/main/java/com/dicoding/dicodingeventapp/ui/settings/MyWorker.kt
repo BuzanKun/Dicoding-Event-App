@@ -19,12 +19,6 @@ class MyWorker(
     context: Context,
     workerParams: WorkerParameters
 ) : Worker(context, workerParams) {
-    companion object {
-        const val NOTIFICATION_ID = 1
-        const val CHANNEL_ID = "channel_01"
-        const val CHANNEL_NAME = "Buzank channel"
-    }
-
     private val eventRepository: EventRepository = Injection.provideRepository(context)
     private var resultStatus: Result? = null
 
@@ -78,4 +72,9 @@ class MyWorker(
         notificationManager.notify(NOTIFICATION_ID, notification.build())
     }
 
+    companion object {
+        const val NOTIFICATION_ID = 1
+        const val CHANNEL_ID = "channel_01"
+        const val CHANNEL_NAME = "Buzank channel"
+    }
 }

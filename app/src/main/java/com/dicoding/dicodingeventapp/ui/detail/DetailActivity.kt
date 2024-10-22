@@ -44,26 +44,28 @@ class DetailActivity : GoBackActivity() {
                         binding.progressBar.visibility = View.GONE
                         val event = result.data // This is of type EventEntity
                         supportActionBar?.title = event.name
-                        Glide.with(this)
-                            .load(event.mediaCover)
-                            .into(binding.ivEventImage)
-                        binding.tvEventSummary.text = event.summary
-                        binding.tvEventName.text = event.name
-                        binding.tvEventOwner.text = event.ownerName
-                        binding.tvEventTime.text = event.beginTime
-                        binding.tvEventQuota.text = String.format(
-                            Locale.getDefault(), "%,d",
-                            viewModel.calculateRemainingQuota(event.quota!!, event.registrants!!)
-                        )
-                        binding.tvEventDescription.text = HtmlCompat.fromHtml(
-                            event.description.toString(),
-                            HtmlCompat.FROM_HTML_MODE_LEGACY
-                        )
-                        binding.btnEventLink.setOnClickListener {
-                            val url = event.link
-                            val intent = Intent(Intent.ACTION_VIEW)
-                            intent.data = Uri.parse(url)
-                            startActivity(intent)
+                        binding.apply{
+                            Glide.with(binding.root)
+                                .load(event.mediaCover)
+                                .into(binding.ivEventImage)
+                            binding.tvEventSummary.text = event.summary
+                            binding.tvEventName.text = event.name
+                            binding.tvEventOwner.text = event.ownerName
+                            binding.tvEventTime.text = event.beginTime
+                            binding.tvEventQuota.text = String.format(
+                                Locale.getDefault(), "%,d",
+                                viewModel.calculateRemainingQuota(event.quota!!, event.registrants!!)
+                            )
+                            binding.tvEventDescription.text = HtmlCompat.fromHtml(
+                                event.description.toString(),
+                                HtmlCompat.FROM_HTML_MODE_LEGACY
+                            )
+                            binding.btnEventLink.setOnClickListener {
+                                val url = event.link
+                                val intent = Intent(Intent.ACTION_VIEW)
+                                intent.data = Uri.parse(url)
+                                startActivity(intent)
+                            }
                         }
                         if (event.isFavorite) {
                             ivFavorite.setImageDrawable(
