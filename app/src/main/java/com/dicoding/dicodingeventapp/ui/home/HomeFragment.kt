@@ -60,19 +60,28 @@ class HomeFragment : Fragment() {
                     is Result.Loading -> {
                         binding?.pbUpcoming?.visibility = View.VISIBLE
                     }
+
                     is Result.Success -> {
                         binding?.pbUpcoming?.visibility = View.GONE
                         val eventData = result.data
                         val limitData = eventData.take(5)
                         upcomingAdapter.submitList(limitData)
+                        binding?.rvEventListUpcoming?.apply {
+                            layoutManager =
+                                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                            setHasFixedSize(true)
+                            adapter = upcomingAdapter
+                        }
                     }
+
                     is Result.Error -> {
                         binding?.pbUpcoming?.visibility = View.GONE
                         Snackbar.make(
                             requireView(),
                             "Error Occurred: ${result.error}",
                             Snackbar.LENGTH_SHORT
-                        ).show()
+                        ).setAction("Dismiss") {
+                        }.show()
                     }
                 }
             }
@@ -90,35 +99,25 @@ class HomeFragment : Fragment() {
                         val eventData = result.data
                         val limitData = eventData.take(5)
                         finishedAdapter.submitList(limitData)
+                        binding?.rvEventListFinished?.apply {
+                            layoutManager = LinearLayoutManager(context)
+                            setHasFixedSize(true)
+                            adapter = finishedAdapter
+                        }
                     }
+
                     is Result.Error -> {
                         binding?.pbFinished?.visibility = View.GONE
                         Snackbar.make(
                             requireView(),
                             "Error Occurred: ${result.error}",
                             Snackbar.LENGTH_SHORT
-                        ).show()
+                        ).setAction("Dismiss") {
+                        }.show()
                     }
                 }
             }
         }
-
-        binding?.root?.postDelayed({
-            binding?.rvEventListUpcoming?.apply {
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                setHasFixedSize(true)
-                adapter = upcomingAdapter
-            }
-        }, 100)
-
-        binding?.root?.postDelayed({
-            binding?.rvEventListFinished?.apply {
-                layoutManager = LinearLayoutManager(context)
-                setHasFixedSize(true)
-                adapter = finishedAdapter
-            }
-        }, 100)
-
     }
 
     override fun onDestroyView() {

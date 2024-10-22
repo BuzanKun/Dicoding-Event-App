@@ -13,7 +13,8 @@ import com.dicoding.dicodingeventapp.data.local.entity.EventEntity
 import com.dicoding.dicodingeventapp.databinding.ItemEventRowBinding
 import com.dicoding.dicodingeventapp.ui.detail.DetailActivity
 
-class ListEventAdapter(private val onFavoriteClick: (EventEntity) -> Unit) : ListAdapter<EventEntity, ListEventAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class ListEventAdapter(private val onFavoriteClick: (EventEntity) -> Unit) :
+    ListAdapter<EventEntity, ListEventAdapter.MyViewHolder>(DIFF_CALLBACK) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -35,9 +36,19 @@ class ListEventAdapter(private val onFavoriteClick: (EventEntity) -> Unit) : Lis
 
         val ivFavorite = holder.binding.fabFavorite
         if (event.isFavorite) {
-            ivFavorite.setImageDrawable(ContextCompat.getDrawable(ivFavorite.context, R.drawable.ic_favorite_full_24))
+            ivFavorite.setImageDrawable(
+                ContextCompat.getDrawable(
+                    ivFavorite.context,
+                    R.drawable.ic_favorite_full_24
+                )
+            )
         } else {
-            ivFavorite.setImageDrawable(ContextCompat.getDrawable(ivFavorite.context, R.drawable.ic_favorite_border_24))
+            ivFavorite.setImageDrawable(
+                ContextCompat.getDrawable(
+                    ivFavorite.context,
+                    R.drawable.ic_favorite_border_24
+                )
+            )
         }
 
         ivFavorite.setOnClickListener {

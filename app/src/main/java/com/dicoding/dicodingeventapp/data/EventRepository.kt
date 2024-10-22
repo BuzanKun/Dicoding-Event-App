@@ -50,7 +50,6 @@ class EventRepository private constructor(
         emitSource(localData)
     }
 
-    // Fetch limited finished events
     fun getFinishedEvents(): LiveData<Result<List<EventEntity>>> = liveData {
         emit(Result.Loading)
         try {
@@ -81,18 +80,11 @@ class EventRepository private constructor(
             Log.d("DATABASE_INSERT", "Inserting ${eventList.size} events")
             eventDao.insertEvent(eventList)
         } catch (e: Exception) {
-            Log.d("EventRepository", "getUpcomingEvents: ${e.message.toString()} ")
+            Log.d("EventRepository", "getFinishedEvents: ${e.message.toString()} ")
             emit(Result.Error(e.message.toString()))
         }
         val localData: LiveData<Result<List<EventEntity>>> =
             eventDao.getEventByStatus(0).map { Result.Success(it) }
-        emitSource(localData)
-    }
-
-    fun getEventByStatus(status: Int): LiveData<Result<List<EventEntity>>> = liveData {
-        emit(Result.Loading)
-        val localData: LiveData<Result<List<EventEntity>>> =
-            eventDao.getEventByStatus(status).map { Result.Success(it) }
         emitSource(localData)
     }
 
@@ -120,6 +112,10 @@ class EventRepository private constructor(
     suspend fun setFavoriteEvent(event: EventEntity, favoriteState: Boolean) {
         event.isFavorite = favoriteState
         eventDao.updateEvent(event)
+    }
+
+    fun getNearestEvent(): EventEntity {
+        return eventDao.getNearestEvent()
     }
 
     companion object {

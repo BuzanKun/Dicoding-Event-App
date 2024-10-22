@@ -33,4 +33,7 @@ interface EventDao {
 
     @Query("SELECT COUNT(*) FROM event WHERE id = :id AND favorited = 1")
     suspend fun isFavoriteEvent(id: Int?): Boolean
+
+    @Query("SELECT * FROM event WHERE status = 1 ORDER BY beginTime ASC LIMIT 1")
+    fun getNearestEvent(): EventEntity
 }

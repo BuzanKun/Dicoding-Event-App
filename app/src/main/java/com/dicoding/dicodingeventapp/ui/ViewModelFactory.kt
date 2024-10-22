@@ -9,7 +9,7 @@ import com.dicoding.dicodingeventapp.di.Injection
 class ViewModelFactory private constructor(private val eventRepository: EventRepository) :
     ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")
-    override fun <T: ViewModel> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(EventViewModel::class.java)) {
             return EventViewModel(eventRepository) as T
         }

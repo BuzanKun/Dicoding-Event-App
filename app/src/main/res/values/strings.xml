@@ -20,4 +20,5 @@
     <string name="button_favorite">Button Favorite</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="settings">Settings</string>
+    <string name="daily_notification">Daily Notification</string>
 </resources>

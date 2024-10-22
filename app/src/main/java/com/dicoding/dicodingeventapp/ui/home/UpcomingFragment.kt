@@ -13,6 +13,7 @@ import com.dicoding.dicodingeventapp.databinding.FragmentUpcomingBinding
 import com.dicoding.dicodingeventapp.ui.EventViewModel
 import com.dicoding.dicodingeventapp.ui.ListEventAdapter
 import com.dicoding.dicodingeventapp.ui.ViewModelFactory
+import com.google.android.material.snackbar.Snackbar
 
 class UpcomingFragment : Fragment() {
 
@@ -45,33 +46,40 @@ class UpcomingFragment : Fragment() {
             }
         }
 
-        binding?.root?.postDelayed({
-            binding?.rvEventList?.apply {
-                layoutManager = LinearLayoutManager(context)
-                setHasFixedSize(true)
-                adapter = eventAdapter
-            }
-        }, 100)
-
-        viewModel.getEventByStatus(1).observe(viewLifecycleOwner) { result ->
+        viewModel.getUpcomingEvents().observe(viewLifecycleOwner) { result ->
             if (result != null) {
                 when (result) {
                     is Result.Loading -> {
                         Log.d("LOADING", "Loading")
                         binding?.pbUpcoming?.visibility = View.VISIBLE
                     }
+
                     is Result.Success -> {
                         Log.d("SUCCESS", "Success")
                         binding?.pbUpcoming?.visibility = View.GONE
                         val eventData = result.data
                         eventAdapter.submitList(eventData)
+                        binding!!.rvEventList.apply {
+                            layoutManager = LinearLayoutManager(context)
+                            setHasFixedSize(true)
+                            adapter = eventAdapter
+                        }
                     }
+
                     is Result.Error -> {
                         binding?.pbUpcoming?.visibility = View.GONE
+                        Snackbar.make(
+                            requireActivity(),
+                            view,
+                            "Error Occurred: ${result.error}",
+                            Snackbar.LENGTH_SHORT
+                        ).setAction("Dismiss") {
+                        }.show()
                     }
                 }
             }
         }
+
     }
 
     override fun onDestroyView() {

@@ -13,6 +13,7 @@ import com.dicoding.dicodingeventapp.databinding.FragmentFinishedBinding
 import com.dicoding.dicodingeventapp.ui.EventViewModel
 import com.dicoding.dicodingeventapp.ui.ListEventAdapter
 import com.dicoding.dicodingeventapp.ui.ViewModelFactory
+import com.google.android.material.snackbar.Snackbar
 
 class FinishedFragment : Fragment() {
 
@@ -43,29 +44,35 @@ class FinishedFragment : Fragment() {
             }
         }
 
-        binding?.root?.postDelayed({
-            binding?.rvEventList?.apply {
-                layoutManager = LinearLayoutManager(context)
-                setHasFixedSize(true)
-                adapter = eventAdapter
-            }
-        }, 100)
-
-        viewModel.getEventByStatus(0).observe(viewLifecycleOwner) { result ->
+        viewModel.getFinishedEvents().observe(viewLifecycleOwner) { result ->
             if (result != null) {
                 when (result) {
                     is Result.Loading -> {
                         Log.d("LOADING", "Loading")
                         binding?.pbFinished?.visibility = View.VISIBLE
                     }
+
                     is Result.Success -> {
                         Log.d("SUCCESS", "Success")
                         binding?.pbFinished?.visibility = View.GONE
                         val eventData = result.data
                         eventAdapter.submitList(eventData)
+                        binding!!.rvEventList.apply {
+                            layoutManager = LinearLayoutManager(context)
+                            setHasFixedSize(true)
+                            adapter = eventAdapter
+                        }
                     }
+
                     is Result.Error -> {
                         binding?.pbFinished?.visibility = View.GONE
+                        Snackbar.make(
+                            requireActivity(),
+                            view,
+                            "Error Occurred: ${result.error}",
+                            Snackbar.LENGTH_SHORT
+                        ).setAction("Dismiss") {
+                        }.show()
                     }
                 }
             }

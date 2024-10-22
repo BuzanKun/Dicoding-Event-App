@@ -7,8 +7,8 @@ import androidx.room.RoomDatabase
 import com.dicoding.dicodingeventapp.data.local.entity.EventEntity
 
 @Database(entities = [EventEntity::class], version = 2, exportSchema = false)
-abstract class EventDatabase: RoomDatabase() {
-    abstract fun eventDao() : EventDao
+abstract class EventDatabase : RoomDatabase() {
+    abstract fun eventDao(): EventDao
 
     companion object {
         @Volatile

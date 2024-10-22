@@ -13,6 +13,7 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "se
 
 class SettingsPreferences private constructor(private val dataStore: DataStore<Preferences>) {
     private val themeKey = booleanPreferencesKey("theme_setting")
+    private val notificationKey = booleanPreferencesKey("notification_setting")
 
     fun getThemeSetting(): Flow<Boolean> {
         return dataStore.data.map { preference ->
@@ -23,6 +24,18 @@ class SettingsPreferences private constructor(private val dataStore: DataStore<P
     suspend fun saveThemeSetting(isDarkModeActive: Boolean) {
         dataStore.edit { preference ->
             preference[themeKey] = isDarkModeActive
+        }
+    }
+
+    fun getNotificationSetting(): Flow<Boolean> {
+        return dataStore.data.map { preference ->
+            preference[notificationKey] ?: false
+        }
+    }
+
+    suspend fun saveNotificationSetting(isNotificationActive: Boolean) {
+        dataStore.edit { preference ->
+            preference[notificationKey] = isNotificationActive
         }
     }
 

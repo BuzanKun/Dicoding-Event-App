@@ -13,6 +13,7 @@ import com.dicoding.dicodingeventapp.databinding.FragmentFavoriteBinding
 import com.dicoding.dicodingeventapp.ui.EventViewModel
 import com.dicoding.dicodingeventapp.ui.ListEventAdapter
 import com.dicoding.dicodingeventapp.ui.ViewModelFactory
+import com.google.android.material.snackbar.Snackbar
 
 
 class FavoriteFragment : Fragment() {
@@ -44,14 +45,6 @@ class FavoriteFragment : Fragment() {
             }
         }
 
-        binding?.root?.postDelayed({
-            binding?.rvEventList?.apply {
-                layoutManager = LinearLayoutManager(context)
-                setHasFixedSize(true)
-                adapter = eventAdapter
-            }
-        }, 100)
-
         viewModel.getFavoriteEvents().observe(viewLifecycleOwner) { result ->
             if (result != null) {
                 when (result) {
@@ -59,14 +52,28 @@ class FavoriteFragment : Fragment() {
                         Log.d("LOADING", "Loading")
                         binding?.progressBar?.visibility = View.VISIBLE
                     }
+
                     is Result.Success -> {
                         Log.d("SUCCESS", "Success")
                         binding?.progressBar?.visibility = View.GONE
                         val eventData = result.data
                         eventAdapter.submitList(eventData)
+                        binding?.rvEventList?.apply {
+                            layoutManager = LinearLayoutManager(context)
+                            setHasFixedSize(true)
+                            adapter = eventAdapter
+                        }
                     }
+
                     is Result.Error -> {
                         binding?.progressBar?.visibility = View.GONE
+                        Snackbar.make(
+                            requireActivity(),
+                            view,
+                            "Error Occurred: ${result.error}",
+                            Snackbar.LENGTH_SHORT
+                        ).setAction("Dismiss") {
+                        }.show()
                     }
                 }
             }

@@ -15,6 +15,7 @@ import com.dicoding.dicodingeventapp.databinding.ActivityDetailBinding
 import com.dicoding.dicodingeventapp.ui.EventViewModel
 import com.dicoding.dicodingeventapp.ui.ViewModelFactory
 import com.dicoding.dicodingeventapp.ui.utils.GoBackActivity
+import com.google.android.material.snackbar.Snackbar
 import java.util.Locale
 
 class DetailActivity : GoBackActivity() {
@@ -38,6 +39,7 @@ class DetailActivity : GoBackActivity() {
                     is Result.Loading -> {
                         binding.progressBar.visibility = View.VISIBLE
                     }
+
                     is Result.Success -> {
                         binding.progressBar.visibility = View.GONE
                         val event = result.data // This is of type EventEntity
@@ -57,16 +59,26 @@ class DetailActivity : GoBackActivity() {
                             event.description.toString(),
                             HtmlCompat.FROM_HTML_MODE_LEGACY
                         )
-                        binding.btEventLink.setOnClickListener {
+                        binding.btnEventLink.setOnClickListener {
                             val url = event.link
                             val intent = Intent(Intent.ACTION_VIEW)
                             intent.data = Uri.parse(url)
                             startActivity(intent)
                         }
                         if (event.isFavorite) {
-                            ivFavorite.setImageDrawable(ContextCompat.getDrawable(ivFavorite.context, R.drawable.ic_favorite_full_24))
+                            ivFavorite.setImageDrawable(
+                                ContextCompat.getDrawable(
+                                    ivFavorite.context,
+                                    R.drawable.ic_favorite_full_24
+                                )
+                            )
                         } else {
-                            ivFavorite.setImageDrawable(ContextCompat.getDrawable(ivFavorite.context, R.drawable.ic_favorite_border_24))
+                            ivFavorite.setImageDrawable(
+                                ContextCompat.getDrawable(
+                                    ivFavorite.context,
+                                    R.drawable.ic_favorite_border_24
+                                )
+                            )
                         }
 
                         ivFavorite.setOnClickListener {
@@ -77,9 +89,17 @@ class DetailActivity : GoBackActivity() {
                             }
                         }
                     }
+
                     is Result.Error -> {
                         binding.progressBar.visibility = View.GONE
                         Log.e("DetailActivity", "Error: ${result.error}")
+                        Snackbar.make(
+                            this,
+                            binding.root,
+                            "Error Occurred: ${result.error}",
+                            Snackbar.LENGTH_SHORT
+                        ).setAction("Dismiss") {
+                        }.show()
                     }
                 }
             }

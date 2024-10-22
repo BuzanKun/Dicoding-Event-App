@@ -11,6 +11,7 @@ import com.dicoding.dicodingeventapp.ui.EventViewModel
 import com.dicoding.dicodingeventapp.ui.ListEventAdapter
 import com.dicoding.dicodingeventapp.ui.ViewModelFactory
 import com.dicoding.dicodingeventapp.ui.utils.GoBackActivity
+import com.google.android.material.snackbar.Snackbar
 
 class SearchableActivity : GoBackActivity() {
     private lateinit var binding: ActivitySearchableBinding
@@ -37,11 +38,6 @@ class SearchableActivity : GoBackActivity() {
                 viewModel.saveFavoriteEvent(it)
             }
         }
-        binding.rvEventList.apply {
-            layoutManager = LinearLayoutManager(context)
-            setHasFixedSize(true)
-            adapter = eventAdapter
-        }
 
         viewModel.searchEvents(query.toString()).observe(this) { result ->
             if (result != null) {
@@ -49,18 +45,31 @@ class SearchableActivity : GoBackActivity() {
                     is Result.Loading -> {
                         binding.progressBar.visibility = View.VISIBLE
                     }
+
                     is Result.Success -> {
                         binding.progressBar.visibility = View.GONE
                         val eventData = result.data
                         eventAdapter.submitList(eventData)
+                        binding.rvEventList.apply {
+                            layoutManager = LinearLayoutManager(context)
+                            setHasFixedSize(true)
+                            adapter = eventAdapter
+                        }
                     }
+
                     is Result.Error -> {
                         binding.progressBar.visibility = View.GONE
                         Log.e("ERROR", result.error)
+                        Snackbar.make(
+                            this,
+                            binding.root,
+                            "Error Occurred: ${result.error}",
+                            Snackbar.LENGTH_SHORT
+                        ).setAction("Dismiss") {
+                        }.show()
                     }
                 }
             }
         }
     }
-
 }
